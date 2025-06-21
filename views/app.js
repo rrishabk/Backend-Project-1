@@ -70,6 +70,15 @@ app.get("/logout", function (req, res) {
   res.redirect("/login");
 });
 
+function islo(req,res,next){
+    if(req.cookies.token === "") res.send("You must be logged in")
+        else {
+    let data = jwt.verify(req.cookies.token,"shhh")
+    req.user = data;
+    }
+    next();
+}
+
 app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+  
 });
