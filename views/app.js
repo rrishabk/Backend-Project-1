@@ -60,10 +60,14 @@ app.post("/login", async function (req, res) {
   if (!user) return res.status(400).send("Invalid email or password");
 
   bcrypt.compare(password, user.password, function (err, result) {
-    if (result) res.status(200).send("Login successful");
+    if (result) res.status(200).redirect("/profile");
     else res.redirect("/login");
   });
 });
+
+app.post("/profile", async function(req,res){
+let user = findOne({email})
+})
 
 app.get("/logout", function (req, res) {
   res.cookie("token", "");
